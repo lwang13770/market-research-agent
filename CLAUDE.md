@@ -15,12 +15,22 @@ This project uses Claude Code to assist with product management workflows, speci
 - If prior research exists, read those files before conducting new research
 
 **Templates (Use for Output Structure):**
-- `templates/company-overview.md` - Structure for company research deliverables
-- `templates/competitive-research.md` - Structure for competitive analysis deliverables
+- Quick mode:
+  - `templates/quick-company-overview.md` - Company research structure
+  - `templates/quick-competitive-research.md` - Competitive analysis structure
+- In-depth mode:
+  - `templates/indepth-market-research.md` - Comprehensive analysis structure (single file)
 
 **Prompts (Read During Execution):**
-- `prompts/intake.md` - Information gathering questions
-- `prompts/market-research.md` - Research areas, methods, and analysis
+- `prompts/intake.md` - Information gathering questions (includes research depth selection)
+- Quick mode:
+  - `prompts/quick-market-research.md` - Research areas, methods, and analysis
+- In-depth mode (read all 5 sequentially):
+  - `prompts/indepth-01-market-sizing.md` - TAM/SAM/SOM analysis
+  - `prompts/indepth-02-competitive-intelligence.md` - Competitor analysis
+  - `prompts/indepth-03-tech-maturity.md` - Infrastructure and readiness
+  - `prompts/indepth-04-economic-sentiment.md` - Macro indicators
+  - `prompts/indepth-05-regulatory-research.md` - Compliance requirements
 
 ---
 
@@ -59,32 +69,71 @@ When context is incomplete:
 
 Collect required information from the user before conducting any research. Do not skip this step.
 
-### Step 2: Research and Analysis
-**Read**: `prompts/market-research.md`
+Key information to gather:
+1. Company name
+2. Industry/space
+3. Company stage
+4. Research context
+5. **Research depth**: Quick overview or In-depth analysis
 
-Conduct comprehensive research and analysis across all areas specified in the prompt.
+### Step 2: Research and Analysis
+
+**Branch based on research depth selected:**
+
+#### Quick Mode
+**Read**: `prompts/quick-market-research.md`
+
+Conduct focused research on company overview and competitive landscape.
+
+#### In-Depth Mode
+**Read all 5 prompts sequentially:**
+1. `prompts/indepth-01-market-sizing.md`
+2. `prompts/indepth-02-competitive-intelligence.md`
+3. `prompts/indepth-03-tech-maturity.md`
+4. `prompts/indepth-04-economic-sentiment.md`
+5. `prompts/indepth-05-regulatory-research.md`
+
+Conduct comprehensive research across all 5 dimensions. Each prompt provides specific guidance for that analysis area.
 
 ### Step 3: Output Generation
-**Read templates before writing**:
-- `templates/company-overview.md` - For the main research report
-- `templates/competitive-research.md` - For detailed competitive analysis
 
-**Output Preferences:**
-- Length: 1500-2000 words per file
+**Branch based on research depth:**
+
+#### Quick Mode
+**Read templates before writing**:
+- `templates/quick-company-overview.md`
+- `templates/quick-competitive-research.md`
+
+**Output**: 2 files, 1500-2000 words each
+
+#### In-Depth Mode
+**Read template before writing**:
+- `templates/indepth-market-research.md`
+
+**Output**: 1 comprehensive file, 3000-4000 words
+
+**Output Preferences (both modes):**
 - Tone: Professional, analytical
 - Always include: Actionable insights tailored to user's context
 - Always include: Sources with URLs at the end of each file
+- Always include: Scores (1-10) for in-depth mode
 
 ### Step 4: Save Output
 Create a dedicated folder and save files:
 
 1. **Create folder**: `research/[company-name]-[YYYY-MM-DD]/`
-2. **Save files** (use corresponding template for each):
+2. **Save files based on mode**:
 
+   **Quick Mode:**
    | File | Template |
    |------|----------|
-   | `company-overview.md` | `templates/company-overview.md` |
-   | `competitive-research.md` | `templates/competitive-research.md` |
+   | `company-overview.md` | `templates/quick-company-overview.md` |
+   | `competitive-research.md` | `templates/quick-competitive-research.md` |
+
+   **In-Depth Mode:**
+   | File | Template |
+   |------|----------|
+   | `indepth-market-research.md` | `templates/indepth-market-research.md` |
 
 3. **Before writing each file**: Read the corresponding template to ensure consistent formatting.
 4. **Confirm to user**: State the folder location and files created.
@@ -221,16 +270,23 @@ Just deliver the research output, state what was saved, and stop.
 
 ```
 market-research-agent/
-├── CLAUDE.md                 # This file - agent instructions
-├── README.md                 # Project overview
+├── CLAUDE.md                          # This file - agent instructions
+├── README.md                          # Project overview
 ├── prompts/
-│   ├── intake.md             # Information gathering
-│   └── market-research.md    # Research areas, methods, and analysis
+│   ├── intake.md                      # Information gathering (includes depth selection)
+│   ├── quick-market-research.md       # Quick mode: research prompt
+│   ├── indepth-01-market-sizing.md    # In-depth: TAM/SAM/SOM
+│   ├── indepth-02-competitive-intelligence.md  # In-depth: Competitors
+│   ├── indepth-03-tech-maturity.md    # In-depth: Infrastructure
+│   ├── indepth-04-economic-sentiment.md        # In-depth: Macro indicators
+│   └── indepth-05-regulatory-research.md       # In-depth: Compliance
 ├── templates/
-│   ├── company-overview.md       # Output template
-│   └── competitive-research.md   # Output template
-└── research/                     # Output folder (created per session)
+│   ├── quick-company-overview.md      # Quick mode: company template
+│   ├── quick-competitive-research.md  # Quick mode: competitive template
+│   └── indepth-market-research.md     # In-depth mode: single comprehensive template
+└── research/                          # Output folder (created per session)
     └── [company]-[date]/
-        ├── company-overview.md
-        └── competitive-research.md
+        ├── company-overview.md        # Quick mode output
+        ├── competitive-research.md    # Quick mode output
+        └── indepth-market-research.md # In-depth mode output
 ```

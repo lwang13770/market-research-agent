@@ -52,14 +52,12 @@ Conduct comprehensive market research using web search tools to gather data on:
 ## Output
 
 **IMPORTANT:** Do NOT create your own output structure. Use the templates provided:
-- `templates/company-overview.md` - For company facts, opportunities, risks, and context-specific insights
-- `templates/competitive-research.md` - For market overview, competitive analysis, and strategic recommendations
+- `templates/quick-company-overview.md` - For company facts, opportunities, risks, and context-specific insights
+- `templates/quick-competitive-research.md` - For market overview, competitive analysis, and strategic recommendations
 
 Save exactly TWO files:
 1. `company-overview.md`
 2. `competitive-research.md`
-
-Do not create any other files (no "research-report.md", no "market-research.md", etc.).
 
 ## Analysis Required
 
