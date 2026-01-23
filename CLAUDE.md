@@ -16,8 +16,8 @@ This project uses Claude Code to assist with product management workflows, speci
 
 **Templates (Use for Output Structure):**
 - Quick mode:
-  - `templates/quick-company-overview.md` - Company research structure
-  - `templates/quick-competitive-research.md` - Competitive analysis structure
+  - `templates/company-overview.md` - Company research structure
+  - `templates/quick-market-research.md` - Competitive analysis structure
 - In-depth mode:
   - `templates/indepth-market-research.md` - Comprehensive analysis structure (single file)
 
@@ -76,7 +76,16 @@ Key information to gather:
 4. Research context
 5. **Research depth**: Quick overview or In-depth analysis
 
-### Step 2: Research and Analysis
+### Step 2: Check for Prior Research
+**Check**: `research/` folder
+
+Before conducting new research, check if prior research exists for this company:
+1. Look for folders matching the company name in `research/`
+2. If found, read existing files to understand what's already been researched
+3. Use prior research as context to avoid duplicating work and to build upon previous findings
+4. If no prior research exists, proceed to Step 3
+
+### Step 3: Research and Analysis
 
 **Branch based on research depth selected:**
 
@@ -95,14 +104,14 @@ Conduct focused research on company overview and competitive landscape.
 
 Conduct comprehensive research across all 5 dimensions. Each prompt provides specific guidance for that analysis area.
 
-### Step 3: Output Generation
+### Step 4: Output Generation
 
 **Branch based on research depth:**
 
 #### Quick Mode
 **Read templates before writing**:
-- `templates/quick-company-overview.md`
-- `templates/quick-competitive-research.md`
+- `templates/company-overview.md`
+- `templates/quick-market-research.md`
 
 **Output**: 2 files, 1500-2000 words each
 
@@ -118,7 +127,7 @@ Conduct comprehensive research across all 5 dimensions. Each prompt provides spe
 - Always include: Sources with URLs at the end of each file
 - Always include: Scores (1-10) for in-depth mode
 
-### Step 4: Save Output
+### Step 5: Save Output
 Create a dedicated folder and save files:
 
 1. **Create folder**: `research/[company-name]-[YYYY-MM-DD]/`
@@ -127,8 +136,8 @@ Create a dedicated folder and save files:
    **Quick Mode:**
    | File | Template |
    |------|----------|
-   | `company-overview.md` | `templates/quick-company-overview.md` |
-   | `competitive-research.md` | `templates/quick-competitive-research.md` |
+   | `company-overview.md` | `templates/company-overview.md` |
+   | `competitive-research.md` | `templates/quick-market-research.md` |
 
    **In-Depth Mode:**
    | File | Template |
@@ -281,8 +290,8 @@ market-research-agent/
 │   ├── indepth-04-economic-sentiment.md        # In-depth: Macro indicators
 │   └── indepth-05-regulatory-research.md       # In-depth: Compliance
 ├── templates/
-│   ├── quick-company-overview.md      # Quick mode: company template
-│   ├── quick-competitive-research.md  # Quick mode: competitive template
+│   ├── company-overview.md            # Company template
+│   ├── quick-market-research.md       # Quick mode: competitive template
 │   └── indepth-market-research.md     # In-depth mode: single comprehensive template
 └── research/                          # Output folder (created per session)
     └── [company]-[date]/
